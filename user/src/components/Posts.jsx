@@ -26,8 +26,8 @@ function Posts() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Posts</h1>
+    <div className="text-center">
+      <h1 className="text-blue-500">Posts</h1>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
