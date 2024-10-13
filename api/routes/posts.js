@@ -10,7 +10,11 @@ const prisma = new PrismaClient();
 router.get("/", async function (req, res, next) {
   try {
     // Fetch posts from the post table
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+        include:{
+            user: true
+        }
+    });
     res.send(posts);
   } catch (error) {
     console.error("Error retrieving posts:", error);
