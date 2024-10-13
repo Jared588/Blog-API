@@ -11,9 +11,9 @@ router.get("/", async function (req, res, next) {
   try {
     // Fetch posts from the post table
     const posts = await prisma.post.findMany({
-        include:{
-            user: true
-        }
+      include: {
+        user: true,
+      },
     });
     res.send(posts);
   } catch (error) {
@@ -30,6 +30,9 @@ router.get("/:postId", async function (req, res, next) {
     const post = await prisma.post.findUnique({
       where: {
         id: postId,
+      },
+      include: {
+        user: true,
       },
     });
 
