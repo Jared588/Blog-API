@@ -31,3 +31,26 @@ export const fetchPostById = async (postId) => {
     throw error;
   }
 };
+
+// Create a new post
+export const createPost = async (data) => {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create a post");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+};

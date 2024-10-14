@@ -1,13 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createPost } from "../api";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the form submission
-    console.log("Post submitted:", { title, content });
+    try {
+      await createPost({ title, content });
+      navigate("../posts");
+    } catch (error) {
+      console.error("Error creating the post:", error);
+    }
   };
 
   return (

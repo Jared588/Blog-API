@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { PrismaClient } = require("@prisma/client");
+const { v4: uuidv4 } = require('uuid');
 
 const prisma = new PrismaClient();
 
@@ -48,7 +49,24 @@ router.get("/:postId", async function (req, res, next) {
 });
 
 /* CREATE */
-// to-do
+router.post("/", async (req, res, next) => {
+  const post = {
+    userId: 1,
+    title: req.body.title,
+    content: req.body.content,
+  };
+
+  try {
+    const newPost = await prisma.post.create({
+      data: post,
+    });
+
+    res.status(201).json(newPost);
+  } catch (error) {
+    console.error("Error creating post:", error);
+    res.status(500).json({ error: "Failed to create post" });
+  }
+});
 
 /* UPDATE */
 // to-do
