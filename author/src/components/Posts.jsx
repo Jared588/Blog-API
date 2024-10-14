@@ -36,7 +36,7 @@ function Posts() {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow">
         <h1 className="text-6xl p-10 text-center">Posts</h1>
         <div className="lg:w-2/5 md:w-2/3 border-t border-slate-600 mx-auto">
           {posts.map((post) => (
