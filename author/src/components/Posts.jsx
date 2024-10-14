@@ -68,9 +68,9 @@ function Posts() {
                   <p className="text-indigo-200">{post.content}</p>
                 </Link>
                 <div className="flex justify-end gap-1">
-                  <button className="w-7" id={post.id} onClick={() => handleUpdate(post.id)}>
+                  <button className="w-7 hover:scale-110 transition-transform duration-200" id={post.id} onClick={() => handleUpdate(post.id)}>
                     <svg
-                      className="fill-blue-500"
+                      className="fill-blue-500 hover:fill-blue-600"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                     >
@@ -79,14 +79,14 @@ function Posts() {
                     </svg>
                   </button>
                   <button
-                    className="w-7"
+                    className="w-7 hover:scale-110 transition-transform duration-200"
                     id={post.id}
                     onClick={() => handleDelete(post.id)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      className="fill-red-500"
+                      className="fill-red-500 hover:fill-red-600"
                     >
                       <title>Delete</title>
                       <path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" />
