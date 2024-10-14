@@ -8,7 +8,7 @@ function Header() {
           <Link className="text-2xl" to="/posts">
             View Posts
           </Link>
-          <Link className="text-2xl" to="/posts">
+          <Link className="text-2xl" to="/posts/new">
             Create Post
           </Link>
         </div>
