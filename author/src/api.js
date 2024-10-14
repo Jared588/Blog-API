@@ -54,3 +54,26 @@ export const createPost = async (data) => {
     throw error;
   }
 };
+
+// Delete post
+export const deletePost = async (postId) => {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId: postId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete post");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+};

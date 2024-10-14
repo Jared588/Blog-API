@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { PrismaClient } = require("@prisma/client");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 const prisma = new PrismaClient();
 
@@ -72,6 +72,17 @@ router.post("/", async (req, res, next) => {
 // to-do
 
 /* DELETE */
-// to-do
+router.delete("/", async (req, res, next) => {
+  try {
+    const deletedPost = await prisma.post.delete({
+      where: { id: req.body.postId },
+    });
+
+    res.status(200).json({ message: "Post deleted succesfully", deletedPost });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Failed to delete post" });
+  }
+});
 
 module.exports = router;
