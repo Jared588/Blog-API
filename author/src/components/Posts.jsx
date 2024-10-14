@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchPosts } from "../api";
+import { fetchPosts, updatePost } from "../api";
 import { deletePost } from "../api";
+import { useNavigate } from "react-router-dom";
+import EditPost from "./EditPost";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -41,6 +44,11 @@ function Posts() {
     }
   };
 
+  const handleUpdate = async (postId) => {
+    navigate(`/posts/edit/${postId}`);
+  }
+  
+
   if (loading) return <div className="text-center p-10">Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -60,7 +68,7 @@ function Posts() {
                   <p className="text-indigo-200">{post.content}</p>
                 </Link>
                 <div className="flex justify-end gap-1">
-                  <button className="w-7">
+                  <button className="w-7" id={post.id} onClick={() => handleUpdate(post.id)}>
                     <svg
                       className="fill-blue-500"
                       xmlns="http://www.w3.org/2000/svg"

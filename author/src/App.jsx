@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Posts from "./components/Posts";
 import Post from "./components/Post";
 import CreatePost from "./components/CreatePost";
+import EditPost from "./components/EditPost";
 import Header from "./components/Header";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:postId" element={<Post />} />
           <Route path="/posts/new" element={<CreatePost />} />
+          <Route path="/posts/edit/:postId" element={<EditPost />} />
         </Routes>
       </div>
     </Router>

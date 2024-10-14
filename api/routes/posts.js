@@ -69,7 +69,20 @@ router.post("/", async (req, res, next) => {
 });
 
 /* UPDATE */
-// to-do
+router.put("/", async (req, res, next) => {
+  const { postId, data } = req.body;
+  try {
+    const updatedPost = await prisma.post.update({
+      where: { id: Number(postId) },
+      data,
+    });
+
+    res.status(200).json({ message: "Post updated succesfully", updatedPost });
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ error: "Failed to update post" });
+  }
+});
 
 /* DELETE */
 router.delete("/", async (req, res, next) => {
