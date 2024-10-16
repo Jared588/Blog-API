@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchPosts, updatePost } from "../api";
 import { deletePost } from "../api";
 import { useNavigate } from "react-router-dom";
-import EditPost from "./EditPost";
+import Header from "./Header";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -46,14 +46,20 @@ function Posts() {
 
   const handleUpdate = async (postId) => {
     navigate(`/posts/edit/${postId}`);
-  }
-  
+  };
 
-  if (loading) return <div className="text-center p-10">Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Header />
+        <div className="text-center p-10">Loading...</div>
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   return (
     <div className="flex flex-col h-screen">
+      <Header />
       <div className="flex-grow">
         <h1 className="text-6xl p-10 text-center">Posts</h1>
         <div className="lg:w-2/5 md:w-2/3 border-t border-slate-600 mx-auto">
@@ -68,7 +74,11 @@ function Posts() {
                   <p className="text-indigo-200">{post.content}</p>
                 </Link>
                 <div className="flex justify-end gap-1">
-                  <button className="w-7 hover:scale-110 transition-transform duration-200" id={post.id} onClick={() => handleUpdate(post.id)}>
+                  <button
+                    className="w-7 hover:scale-110 transition-transform duration-200"
+                    id={post.id}
+                    onClick={() => handleUpdate(post.id)}
+                  >
                     <svg
                       className="fill-blue-500 hover:fill-blue-600"
                       xmlns="http://www.w3.org/2000/svg"

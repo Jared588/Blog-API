@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchPostById } from "../api";
+import Header from "./Header";
 
 const Post = () => {
   const { postId } = useParams(); // Get postId from URL parameters
@@ -37,14 +38,17 @@ const Post = () => {
   if (!post) return <div>No post found.</div>;
 
   return (
-    <div className="flex-grow w-2/3 m-auto">
-      <div className="py-20">
-        <h2 className="text-6xl text-indigo-500">{post.title}</h2>
-        <p className="text-indigo-200 pt-6 font-semibold">
-          {formatDate(post.createdAt)} by {post.user.username}
-        </p>
+    <div>
+      <Header />
+      <div className="flex-grow w-2/3 m-auto">
+        <div className="py-20">
+          <h2 className="text-6xl text-indigo-500">{post.title}</h2>
+          <p className="text-indigo-200 pt-6 font-semibold">
+            {formatDate(post.createdAt)} by {post.user.username}
+          </p>
+        </div>
+        <p className="text-lg">{post.content}</p>
       </div>
-      <p className="text-lg">{post.content}</p>
     </div>
   );
 };
