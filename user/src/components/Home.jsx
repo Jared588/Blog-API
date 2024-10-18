@@ -1,3 +1,5 @@
+import Header from "./Header";
+
 const Home = () => {
   return (
     <div className="flex flex-col-reverse lg:flex-row items-center justify-center lg:gap-10 lg:p-14 overflow-x-clip">

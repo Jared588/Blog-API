@@ -32,19 +32,21 @@ const Post = () => {
     });
   }
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="text-center p-10">Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!post) return <div>No post found.</div>;
 
   return (
-    <div className="flex-grow w-2/3 m-auto">
-      <div className="py-20">
-        <h2 className="text-6xl text-indigo-500">{post.title}</h2>
-        <p className="text-indigo-200 pt-6 font-semibold">
-          {formatDate(post.createdAt)} by {post.user.username}
-        </p>
+    <div>
+      <div className="flex-grow w-2/3 m-auto">
+        <div className="py-20">
+          <h2 className="text-6xl text-indigo-500">{post.title}</h2>
+          <p className="text-indigo-200 pt-6 font-semibold">
+            {formatDate(post.createdAt)} by {post.user.username}
+          </p>
+        </div>
+        <p className="text-lg">{post.content}</p>
       </div>
-      <p className="text-lg">{post.content}</p>
     </div>
   );
 };

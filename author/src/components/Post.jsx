@@ -33,7 +33,13 @@ const Post = () => {
     });
   }
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Header />
+        <div className="text-center p-10">Loading...</div>
+      </div>
+    );
   if (error) return <div>{error}</div>;
   if (!post) return <div>No post found.</div>;
 

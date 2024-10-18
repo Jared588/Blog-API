@@ -41,8 +41,4 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-function verifyToken(req, res, next) {
-  const bearerHeader = req.header["authorization"];
-}
-
 module.exports = router;

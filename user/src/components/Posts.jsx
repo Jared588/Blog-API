@@ -24,10 +24,10 @@ function Posts() {
 
   function formatDate(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: '2-digit',
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
     });
   }
 
@@ -44,7 +44,9 @@ function Posts() {
               <div className="hover:bg-indigo-600 hover:bg-opacity-10 hover:rounded-xl p-4 my-1">
                 <Link className="text-white" to={`/posts/${post.id}`}>
                   <h2 className="text-3xl font-semibold">{post.title}</h2>
-                  <p className="pb-2 text-indigo-500">{formatDate(post.createdAt)} by {post.user.username}</p>
+                  <p className="pb-2 text-indigo-500">
+                    {formatDate(post.createdAt)} by {post.user.username}
+                  </p>
                   <p className="text-indigo-200">{post.content}</p>
                 </Link>
               </div>

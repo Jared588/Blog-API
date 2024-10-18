@@ -2,7 +2,9 @@ var express = require("express");
 var router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const { v4: uuidv4 } = require("uuid");
-
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = process.env.SECRET_KEY;
+require("dotenv").config();
 
 const prisma = new PrismaClient();
 
@@ -50,53 +52,94 @@ router.get("/:postId", async function (req, res, next) {
 });
 
 /* CREATE */
-router.post("/", async (req, res, next) => {
-  const post = {
-    userId: 1,
-    title: req.body.title,
-    content: req.body.content,
-  };
+router.post("/", verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, SECRET_KEY, async (err, authData) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
 
-  try {
-    const newPost = await prisma.post.create({
-      data: post,
-    });
+    const post = {
+      userId: authData.userId,
+      title: req.body.title,
+      content: req.body.content,
+    };
 
-    res.status(201).json(newPost);
-  } catch (error) {
-    console.error("Error creating post:", error);
-    res.status(500).json({ error: "Failed to create post" });
-  }
+    try {
+      const newPost = await prisma.post.create({
+        data: post,
+      });
+
+      res.status(201).json(newPost);
+    } catch (error) {
+      console.error("Error creating post:", error);
+      res.status(500).json({ error: "Failed to create post" });
+    }
+  });
 });
 
 /* UPDATE */
-router.put("/", async (req, res, next) => {
-  const { postId, data } = req.body;
-  try {
-    const updatedPost = await prisma.post.update({
-      where: { id: Number(postId) },
-      data,
-    });
+router.put("/", verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, SECRET_KEY, async (err, authData) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+    const { postId, data } = req.body;
+    try {
+      const updatedPost = await prisma.post.update({
+        where: { id: Number(postId) },
+        data,
+      });
 
-    res.status(200).json({ message: "Post updated succesfully", updatedPost });
-  } catch (error) {
-    console.error("Error updating post:", error);
-    res.status(500).json({ error: "Failed to update post" });
-  }
+      res
+        .status(200)
+        .json({ message: "Post updated succesfully", updatedPost });
+    } catch (error) {
+      console.error("Error updating post:", error);
+      res.status(500).json({ error: "Failed to update post" });
+    }
+  });
 });
 
 /* DELETE */
-router.delete("/", async (req, res, next) => {
-  try {
-    const deletedPost = await prisma.post.delete({
-      where: { id: req.body.postId },
-    });
+router.delete("/", verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, SECRET_KEY, async (err, authData) => {
+    if (err) {
+      return res.sendStatus(403); // Forbidden
+    }
+    
+    try {
+      const deletedPost = await prisma.post.delete({
+        where: { id: req.body.postId },
+      });
 
-    res.status(200).json({ message: "Post deleted succesfully", deletedPost });
-  } catch (error) {
-    console.error("Error deleting post:", error);
-    res.status(500).json({ error: "Failed to delete post" });
-  }
+      res
+        .status(200)
+        .json({ message: "Post deleted succesfully", deletedPost });
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      res.status(500).json({ error: "Failed to delete post" });
+    }
+  });
 });
+
+// Format: Bearer <access_token>
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers["authorization"];
+  // Check if bearer is undefines
+  if (typeof bearerHeader !== undefined) {
+    // Split at the space
+    const bearer = bearerHeader.split(" ");
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
+}
 
 module.exports = router;
