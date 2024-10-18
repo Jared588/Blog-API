@@ -13,7 +13,7 @@ const CreatePost = () => {
     e.preventDefault();
     try {
       await createPost({ title, content });
-      navigate("../posts");
+      navigate("/posts");
     } catch (error) {
       console.error("Error creating the post:", error);
     }

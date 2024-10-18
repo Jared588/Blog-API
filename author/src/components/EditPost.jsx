@@ -25,7 +25,7 @@ const EditPost = () => {
     e.preventDefault();
     try {
       await updatePost(postId, { title, content });
-      navigate(`../posts/${postId}`);
+      navigate(`/posts/${postId}`);
     } catch (error) {
       console.error("Error updating the post:", error);
     }
