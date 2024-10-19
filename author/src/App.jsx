@@ -9,6 +9,7 @@ import Post from "./components/Post";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import SignIn from "./components/SignIn";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <div className="flex flex-col h-screen">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
 
             <Route path="/posts" element={<ProtectedRoute />}>
