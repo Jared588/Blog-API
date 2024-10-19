@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "start-prod": "./bin/www"
+    "start-prod": "./bin/www",
+    "build": "npm install"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
