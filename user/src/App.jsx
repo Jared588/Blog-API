@@ -21,8 +21,8 @@ const useAnalytics = () => {
     // Track page views on route changes
     ReactGA.send({
       hitType: "pageview",
-      page: location,
-      title: "Custom Title",
+      page: location.pathname,
+      title: document.title,
     });
   }, [location]);
 };
