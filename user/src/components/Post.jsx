@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchPostById } from "../api";
-import ReactGA from "react-ga4";
 
 const Post = () => {
   const { postId } = useParams(); // Get postId from URL parameters
@@ -23,14 +22,6 @@ const Post = () => {
 
     getPost();
   }, [postId]);
-
-  useEffect(() => {
-    ReactGA.send({
-      hitType: "pageview",
-      page: `/post/${postId}`,
-      title: "Post",
-    });
-  });
 
   function formatDate(dateString) {
     const date = new Date(dateString);
